@@ -15,7 +15,7 @@ add_executable(${PROJECT_NAME}
     src/font.c
 )
 
-pico_set_program_version(${PROJECT_NAME} "0.1.0")
+pico_set_program_version(${PROJECT_NAME} "1.0.0")
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
 

@@ -3,6 +3,23 @@
 A project for the Raspberry Pi Pico 2 (RP2350) series that displays system metrics on an SSD1309 OLED display. 
 It parses JSON objects received via USB or UART to show real-time CPU, RAM, and SWAP (Linux) / PAGE (Windows) usage as bar graphs, along with system load averages and uptime.
 
+## Features
+- Displays CPU, RAM, and SWAP/PAGE usage as bar graphs.
+- Shows system load averages and uptime.
+- Supports both USB and UART communication.
+- Configurable refresh rate.
+- Supports both Linux and Windows.
+
+### Boot Screen
+<img src="imgs/OLED_BOOT.JPG" alt="OLED System Monitor Boot" width="400"/>
+
+### Linux
+<img src="imgs/OLED_LINUX.JPG" alt="OLED System Monitor Linux" width="400"/>
+
+### Windows
+<img src="imgs/OLED_WINDOWS.JPG" alt="OLED System Monitor Windows" width="400"/>
+
+
 ## Hardware Connections
 
 | SSD1309 Pin | Pico 2 Pin | Function |
