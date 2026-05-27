@@ -157,3 +157,7 @@ To print JSON to stdout:
 ```bash
 ./build-windows-release/Release/system_monitor_host.exe --stdout -i 1
 ```
+
+## License
+
+[Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC)](https://creativecommons.org/licenses/by-nc/4.0/deed.en)
