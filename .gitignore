@@ -1,0 +1,6 @@
+.idea/
+.junie/
+build*/
+linux-host/build/*
+windows-host/build/*
+windows-host/build-windows-host/
