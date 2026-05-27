@@ -49,12 +49,12 @@ It parses JSON objects received via USB or UART to show real-time CPU, RAM, and 
    cmake --build build-fw-debug
    ```
 
-3. The output file `pico2-oled-system-monitor.uf2` will be generated in the corresponding build directory.
+3. The output file `oled-system-monitor.uf2` will be generated in the corresponding build directory.
 
 ## Usage
 
 1. Connect the OLED display to the Pico 2 as specified in the [Hardware Connections](#hardware-connections) section.
-2. Flash the `pico2-oled-system-monitor.uf2` file to your Pico 2.
+2. Flash the `oled-system-monitor.uf2` file to your Pico 2.
 3. Send a JSON object to the Pico 2 via USB Serial or UART0 at **115200 baud**.
 
 ### Expected JSON Format
@@ -119,7 +119,7 @@ Notes:
 
 Using CMake:
 
-```powershell
+```bash
 cmake -S windows-host -B build-windows-release -DCMAKE_BUILD_TYPE=Release
 cmake --build build-windows-release
 
@@ -131,12 +131,12 @@ cmake --build build-windows-debug
 
 To write to the Pico's USB CDC serial port (example: `COM3`) once per second:
 
-```powershell
+```bash
 ./build-windows-release/Release/system_monitor_host.exe -d COM3 -i 1
 ```
 
 To print JSON to stdout:
 
-```powershell
+```bash
 ./build-windows-release/Release/system_monitor_host.exe --stdout -i 1
 ```
