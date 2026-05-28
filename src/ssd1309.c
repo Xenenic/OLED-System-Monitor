@@ -25,6 +25,8 @@
 
 static uint8_t buffer[SSD1309_WIDTH * SSD1309_HEIGHT / 8];
 
+static uint8_t last_contrast = 0xCF;
+
 static void ssd1309_write_cmd(uint8_t cmd) {
     uint8_t buf[2] = {0x00, cmd};
     i2c_write_blocking(I2C_PORT, SSD1309_ADDR, buf, 2, false);
@@ -65,6 +67,7 @@ void ssd1309_init() {
     ssd1309_write_cmd(0x12);
     ssd1309_write_cmd(0x81); // Set contrast control
     ssd1309_write_cmd(0xCF);
+    last_contrast = 0xCF;
     ssd1309_write_cmd(0xD9); // Set pre-charge period
     ssd1309_write_cmd(0xF1);
     ssd1309_write_cmd(0xDB); // Set VCOMH deselect level
@@ -75,6 +78,13 @@ void ssd1309_init() {
 
     ssd1309_clear();
     ssd1309_show();
+}
+
+void ssd1309_set_contrast(uint8_t contrast) {
+    if (contrast == last_contrast) return;
+    ssd1309_write_cmd(0x81);
+    ssd1309_write_cmd(contrast);
+    last_contrast = contrast;
 }
 
 void ssd1309_clear() {

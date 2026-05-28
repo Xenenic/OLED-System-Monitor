@@ -158,11 +158,12 @@ static void format_uptime(unsigned long long sec, char *out, size_t out_len) {
 
 static void usage(const char *argv0) {
     fprintf(stderr,
-            "Usage: %s -d COM3 [-i seconds] [-b baud] [--stdout]\n"
+            "Usage: %s -d COM3 [-i seconds] [-b baud] [--stdout] [--brightness percent]\n"
             "  -d PORT     Serial device to write JSON to (e.g. COM3 or \\\\.\\COM10)\n"
             "  -i SEC      Interval between updates (default: 1.0)\n"
             "  -b BAUD     Baud rate (default: 115200)\n"
-            "  --stdout    Write JSON to stdout instead of serial\n",
+            "  --stdout    Write JSON to stdout instead of serial\n"
+            "  --brightness PCT  Optional OLED brightness percent (0-100)\n",
             argv0);
 }
 
@@ -229,6 +230,7 @@ int main(int argc, char **argv) {
     double interval_s = 1.0;
     int baud = 115200;
     bool to_stdout = false;
+    double brightness_pct = -1.0;
 
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-d") == 0 && i + 1 < argc) {
@@ -240,6 +242,10 @@ int main(int argc, char **argv) {
             baud = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--stdout") == 0) {
             to_stdout = true;
+        } else if (strcmp(argv[i], "--brightness") == 0 && i + 1 < argc) {
+            brightness_pct = strtod(argv[++i], NULL);
+            if (brightness_pct < 0.0) brightness_pct = 0.0;
+            if (brightness_pct > 100.0) brightness_pct = 100.0;
         } else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             usage(argv[0]);
             return 0;
@@ -332,9 +338,16 @@ int main(int argc, char **argv) {
         }
 
         char json[256];
-        int json_len = snprintf(json, sizeof(json),
+        int json_len;
+        if (brightness_pct >= 0.0) {
+            json_len = snprintf(json, sizeof(json),
+                                "{\"cpu\":%.0f,\"ram\":%.0f,\"page\":%.0f,\"load\":[%.2f,%.2f,%.2f],\"uptime\":\"%s\",\"brightness\":%.0f}\n",
+                                cpu, ram, swap, (float)la1, (float)la5, (float)la15, uptime, brightness_pct);
+        } else {
+            json_len = snprintf(json, sizeof(json),
                                 "{\"cpu\":%.0f,\"ram\":%.0f,\"page\":%.0f,\"load\":[%.2f,%.2f,%.2f],\"uptime\":\"%s\"}\n",
                                 cpu, ram, swap, (float)la1, (float)la5, (float)la15, uptime);
+        }
         if (json_len < 0 || (size_t)json_len >= sizeof(json)) {
             fprintf(stderr, "Error: JSON buffer too small\n");
             break;

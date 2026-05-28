@@ -154,6 +154,15 @@ void parse_and_display(const char *json) {
     bool have_page = json_has_key(json, "\"page\"");
     float swap_or_page = have_page ? get_json_float(json, "\"page\"")
                                    : get_json_float(json, "\"swap\"");
+
+    if (json_has_key(json, "\"brightness\"")) {
+        float b = get_json_float(json, "\"brightness\"");
+        if (b < 0.0f) b = 0.0f;
+        if (b > 100.0f) b = 100.0f;
+        uint8_t contrast = (uint8_t)(b * 255.0f / 100.0f + 0.5f);
+        ssd1309_set_contrast(contrast);
+    }
+
     float l1 = 0, l5 = 0, l15 = 0;
     get_json_load(json, &l1, &l5, &l15);
     char uptime[32];

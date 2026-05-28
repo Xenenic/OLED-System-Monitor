@@ -32,6 +32,7 @@
 #define SSD1309_ADDR 0x3C
 
 void ssd1309_init();
+void ssd1309_set_contrast(uint8_t contrast);
 void ssd1309_clear();
 void ssd1309_show();
 void ssd1309_draw_pixel(uint8_t x, uint8_t y, bool on);

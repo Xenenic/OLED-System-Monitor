@@ -84,7 +84,8 @@ The monitor expects a JSON object with the following structure:
   "ram": 45,
   "swap": 10,
   "load": [0.15, 0.25, 0.30],
-  "uptime": "2d 04:15:22"
+  "uptime": "2d 04:15:22",
+  "brightness": 60
 }
 ```
 
@@ -92,6 +93,7 @@ The monitor expects a JSON object with the following structure:
 - `swap` (Linux) / `page` (Windows): Percentage value (0-100) for the SWAP/PAGE bar graph.
 - `load`: An array of three floats representing load averages.
 - `uptime`: A string representing the system uptime.
+- `brightness` (optional): OLED brightness percent (0-100).
 
 The display will automatically update whenever a complete JSON object is received.
 
