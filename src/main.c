@@ -60,29 +60,29 @@ void render_stats(float cpu, float ram, float swap_or_page, const char *swap_lab
     
     // Load Average at the top
     snprintf(buf, sizeof(buf), "LOAD: %.2f %.2f %.2f", l1, l5, l15);
-    ssd1309_draw_string(0, 0, buf);
+    ssd1309_draw_string(0, 2, buf);
 
     // Uptime below it
     snprintf(buf, sizeof(buf), "UPTIME: %s", uptime);
-    ssd1309_draw_string(0, 10, buf);
+    ssd1309_draw_string(0, 12, buf);
 
     // CPU Bar
-    ssd1309_draw_string(0, 24, "CPU");
-    draw_bar(28, 24, 78, 9, cpu);
+    ssd1309_draw_string(0, 26, "CPU");
+    draw_bar(28, 26, 78, 9, cpu);
     snprintf(buf, sizeof(buf), "%3.0f%%", cpu);
-    ssd1309_draw_string(104, 25, buf);
+    ssd1309_draw_string(104, 27, buf);
 
     // RAM Bar
-    ssd1309_draw_string(0, 37, "RAM");
-    draw_bar(28, 37, 78, 9, ram);
+    ssd1309_draw_string(0, 39, "RAM");
+    draw_bar(28, 39, 78, 9, ram);
     snprintf(buf, sizeof(buf), "%3.0f%%", ram);
-    ssd1309_draw_string(104, 38, buf);
+    ssd1309_draw_string(104, 40, buf);
 
     // SWAP/PAGE Bar
-    ssd1309_draw_string(0, 50, swap_label);
-    draw_bar(28, 50, 78, 9, swap_or_page);
+    ssd1309_draw_string(0, 52, swap_label);
+    draw_bar(28, 52, 78, 9, swap_or_page);
     snprintf(buf, sizeof(buf), "%3.0f%%", swap_or_page);
-    ssd1309_draw_string(104, 51, buf);
+    ssd1309_draw_string(104, 53, buf);
 
     ssd1309_show();
 }
